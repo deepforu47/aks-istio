@@ -135,5 +135,87 @@ myapp     LoadBalancer   10.0.174.48   13.93.33.62   80:31928/TCP   1m
 ## This is simple nginx based application, so you can do testing using proxy as below to check that both applications are working as expceted
 ```bash
 >kubectl port-forward $(kubectl --namespace sftp get pod --no-headers=true -l app=myapp -l version=v1 -o=custom-columns=NAME:.metadata.name) 8080:80
-> kubectl port-forward $(kubectl --namespace sftp get pod --no-headers=true -l app=myapp -l version=v2 -o=custom-columns=NAME:.metadata.name) 8081:80
+>kubectl port-forward $(kubectl --namespace sftp get pod --no-headers=true -l app=myapp -l version=v2 -o=custom-columns=NAME:.metadata.name) 8081:80
+```
+
+## Create application gateway, which forward the incoming traffic to actual istio ingress created duing istio installation. We have defined routing login within gateway.yaml file. This will create gateway, destinationrule and virtualservice as shown below:
+```bash
+> kubectl apply -f .\app-gateway.yaml
+gateway "app-gateway" created
+destinationrule "myapp" created
+virtualservice "myapp" created
+```
+
+## Now you can do testing using below curl trick as below. Intially you will see all traffic routing to Version 1.
+```bash
+$ while : ;do export GREP_COLOR='1;33';curl -s  http://23.97.234.106/  |  grep --color=always "Version 1" ; export GREP_COLOR='1;36'; curl -s  http://23.97.234.106/  | grepon 2" ; sleep 1; doneio
+<h1>Welcome to Version 1 of the app!</h1>
+<h1>Welcome to Version 1 of the app!</h1>
+<h1>Welcome to Version 1 of the app!</h1>
+<h1>Welcome to Version 1 of the app!</h1>
+<h1>Welcome to Version 1 of the app!</h1>
+<h1>Welcome to Version 1 of the app!</h1>
+<h1>Welcome to Version 1 of the app!</h1>
+<h1>Welcome to Version 1 of the app!</h1>
+<h1>Welcome to Version 1 of the app!</h1>
+<h1>Welcome to Version 1 of the app!</h1>
+<h1>Welcome to Version 1 of the app!</h1>
+<h1>Welcome to Version 1 of the app!</h1>
+<h1>Welcome to Version 1 of the app!</h1>
+<h1>Welcome to Version 1 of the app!</h1>
+<h1>Welcome to Version 1 of the app!</h1>
+<h1>Welcome to Version 1 of the app!</h1>
+<h1>Welcome to Version 1 of the app!</h1>
+<h1>Welcome to Version 1 of the app!</h1>
+<h1>Welcome to Version 1 of the app!</h1>
+<h1>Welcome to Version 1 of the app!</h1>
+```
+
+## You can change the weight in VirtualService and reploy this using below command.
+```bash
+> istioctl.exe replace -f .\app-gateway.yaml
+Updated config gateway/sftp/app-gateway to revision 10276905
+Updated config destination-rule/sftp/myapp to revision 10276906
+Updated config virtual-service/sftp/myapp to revision 10286413
+```
+
+## After changing weight to 50-50, below will be the result.
+```bash
+$ while : ;do export GREP_COLOR='1;33';curl -s  http://23.97.234.106/  |  grep --color=always "Version 1" ; export GREP_COLOR='1;36'; curl -s  http://23.97.234.106/  | grepon 2" ; sleep 1; done
+<h1>Welcome to Version 1 of the app!</h1>
+<h1>Welcome to Version 2 of the app!</h1>
+<h1>Welcome to Version 2 of the app!</h1>
+<h1>Welcome to Version 1 of the app!</h1>
+<h1>Welcome to Version 2 of the app!</h1>
+<h1>Welcome to Version 1 of the app!</h1>
+<h1>Welcome to Version 2 of the app!</h1>
+<h1>Welcome to Version 1 of the app!</h1>
+<h1>Welcome to Version 1 of the app!</h1>
+<h1>Welcome to Version 1 of the app!</h1>
+<h1>Welcome to Version 1 of the app!</h1>
+<h1>Welcome to Version 2 of the app!</h1>
+<h1>Welcome to Version 1 of the app!</h1>
+```
+
+## After final testing route all traffic to Version 2 and verify the results.
+```bash
+$ while : ;do export GREP_COLOR='1;33';curl -s  http://23.97.234.106/  |  grep --color=always "Version 1" ; export GREP_COLOR='1;36'; curl -s  http://23.97.234.106/  | grepon 2" ; sleep 1; done
+<h1>Welcome to Version 2 of the app!</h1>
+<h1>Welcome to Version 2 of the app!</h1>
+<h1>Welcome to Version 2 of the app!</h1>
+<h1>Welcome to Version 2 of the app!</h1>
+<h1>Welcome to Version 2 of the app!</h1>
+<h1>Welcome to Version 2 of the app!</h1>
+<h1>Welcome to Version 2 of the app!</h1>
+<h1>Welcome to Version 2 of the app!</h1>
+<h1>Welcome to Version 2 of the app!</h1>
+<h1>Welcome to Version 2 of the app!</h1>
+<h1>Welcome to Version 2 of the app!</h1>
+<h1>Welcome to Version 2 of the app!</h1>
+<h1>Welcome to Version 2 of the app!</h1>
+<h1>Welcome to Version 2 of the app!</h1>
+<h1>Welcome to Version 2 of the app!</h1>
+<h1>Welcome to Version 2 of the app!</h1>
+<h1>Welcome to Version 2 of the app!</h1>
+<h1>Welcome to Version 2 of the app!</h1>
 ```
