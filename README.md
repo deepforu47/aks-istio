@@ -42,12 +42,12 @@ rs/istio-tracing-6bc87d5c59            1m
 rs/prometheus-544bf8c86                1m
 rs/servicegraph-6f9dc968f5             1m
 
-NAME                       REFERENCE                         TARGETS           MINPODS   MAXPODS   REPLICAS   AGE
-hpa/istio-egressgateway    Deployment/istio-egressgateway    <unknown> / 80%   1         5         1          58s
-hpa/istio-ingressgateway   Deployment/istio-ingressgateway   <unknown> / 80%   1         5         1          58s
-hpa/istio-pilot            Deployment/istio-pilot            <unknown> / 80%   1         5         1          57s
-hpa/istio-policy           Deployment/istio-policy           <unknown> / 80%   1         5         1          58s
-hpa/istio-telemetry        Deployment/istio-telemetry        <unknown> / 80%   1         5         1          57s
+NAME                                                       REFERENCE                         TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/istio-egressgateway    Deployment/istio-egressgateway    20%/80%   1         5         1          6h
+horizontalpodautoscaler.autoscaling/istio-ingressgateway   Deployment/istio-ingressgateway   20%/80%   1         5         1          6h
+horizontalpodautoscaler.autoscaling/istio-pilot            Deployment/istio-pilot            0%/80%    1         5         1          6h
+horizontalpodautoscaler.autoscaling/istio-policy           Deployment/istio-policy           30%/80%   1         5         1          6h
+horizontalpodautoscaler.autoscaling/istio-telemetry        Deployment/istio-telemetry        30%/80%   1         5         1          6h
 
 NAME                               DESIRED   SUCCESSFUL   AGE
 jobs/istio-cleanup-secrets         1         0            1m
