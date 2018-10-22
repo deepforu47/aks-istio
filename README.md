@@ -13,81 +13,81 @@ kube-system    Active    103d
 ## Get Everything running in istio-system namespace
 
 ```bash
-> kubectl get all -n istio-system
-NAME                            AGE
-deploy/grafana                  1m
-deploy/istio-citadel            1m
-deploy/istio-egressgateway      1m
-deploy/istio-galley             1m
-deploy/istio-ingressgateway     1m
-deploy/istio-pilot              1m
-deploy/istio-policy             1m
-deploy/istio-sidecar-injector   1m
-deploy/istio-telemetry          1m
-deploy/istio-tracing            1m
-deploy/prometheus               1m
-deploy/servicegraph             1m
+>  kubectl get all -n istio-system
+NAME                                          READY   STATUS      RESTARTS   AGE
+pod/grafana-56947478f7-x2tqh                  1/1     Running     0          6h
+pod/istio-citadel-8566d7c458-c5jk5            1/1     Running     0          6h
+pod/istio-cleanup-secrets-4hjbl               0/1     Completed   0          6h
+pod/istio-egressgateway-7bcdcf57b9-tcf8r      1/1     Running     0          6h
+pod/istio-galley-677745f7d6-fkvh7             1/1     Running     0          6h
+pod/istio-grafana-post-install-pzdq6          0/1     Completed   0          6h
+pod/istio-ingressgateway-7f4c4c57f6-vkmkf     1/1     Running     0          6h
+pod/istio-pilot-cf944f77d-86h6c               2/2     Running     0          6h
+pod/istio-policy-787bb9599c-zxltf             2/2     Running     0          6h
+pod/istio-security-post-install-jg5rj         0/1     Completed   0          6h
+pod/istio-sidecar-injector-5f55468d6d-ghp5r   1/1     Running     0          6h
+pod/istio-telemetry-6df7c97dcd-qflcs          2/2     Running     0          6h
+pod/istio-tracing-6bc87d5c59-hsh46            1/1     Running     0          6h
+pod/prometheus-544bf8c86-nm2bs                1/1     Running     0          6h
+pod/servicegraph-6f9dc968f5-9dwhj             1/1     Running     0          6h
 
-NAME                                   AGE
-rs/grafana-56947478f7                  1m
-rs/istio-citadel-8566d7c458            1m
-rs/istio-egressgateway-7bcdcf57b9      1m
-rs/istio-galley-677745f7d6             1m
-rs/istio-ingressgateway-7f4c4c57f6     1m
-rs/istio-pilot-cf944f77d               1m
-rs/istio-policy-787bb9599c             1m
-rs/istio-sidecar-injector-5f55468d6d   1m
-rs/istio-telemetry-6df7c97dcd          1m
-rs/istio-tracing-6bc87d5c59            1m
-rs/prometheus-544bf8c86                1m
-rs/servicegraph-6f9dc968f5             1m
+NAME                             TYPE           CLUSTER-IP     EXTERNAL-IP     PORT(S)                                                                                                                   AGE
+service/grafana                  ClusterIP      10.0.1.190     <none>          3000/TCP                                                                                                                  6h
+service/istio-citadel            ClusterIP      10.0.12.95     <none>          8060/TCP,9093/TCP                                                                                                         6h
+service/istio-egressgateway      ClusterIP      10.0.117.150   <none>          80/TCP,443/TCP                                                                                                            6h
+service/istio-galley             ClusterIP      10.0.78.30     <none>          443/TCP,9093/TCP,9901/TCP                                                                                                 6h
+service/istio-ingressgateway     LoadBalancer   10.0.144.57    23.97.234.106   80:31380/TCP,443:31390/TCP,31400:31400/TCP,15011:31777/TCP,8060:30336/TCP,853:31498/TCP,15030:31563/TCP,15031:32717/TCP   6h
+service/istio-pilot              ClusterIP      10.0.7.193     <none>          15010/TCP,15011/TCP,8080/TCP,9093/TCP                                                                                     6h
+service/istio-policy             ClusterIP      10.0.20.7      <none>          9091/TCP,15004/TCP,9093/TCP                                                                                               6h
+service/istio-sidecar-injector   ClusterIP      10.0.187.218   <none>          443/TCP                                                                                                                   6h
+service/istio-telemetry          ClusterIP      10.0.19.106    <none>          9091/TCP,15004/TCP,9093/TCP,42422/TCP                                                                                     6h
+service/jaeger-agent             ClusterIP      None           <none>          5775/UDP,6831/UDP,6832/UDP                                                                                                6h
+service/jaeger-collector         ClusterIP      10.0.195.232   <none>          14267/TCP,14268/TCP                                                                                                       6h
+service/jaeger-query             ClusterIP      10.0.178.252   <none>          16686/TCP                                                                                                                 6h
+service/prometheus               ClusterIP      10.0.16.120    <none>          9090/TCP                                                                                                                  6h
+service/servicegraph             ClusterIP      10.0.255.35    <none>          8088/TCP                                                                                                                  6h
+service/tracing                  ClusterIP      10.0.247.105   <none>          80/TCP                                                                                                                    6h
+service/zipkin                   ClusterIP      10.0.226.124   <none>          9411/TCP                                                                                                                  6h
+
+NAME                                     DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/grafana                  1         1         1            1           6h
+deployment.apps/istio-citadel            1         1         1            1           6h
+deployment.apps/istio-egressgateway      1         1         1            1           6h
+deployment.apps/istio-galley             1         1         1            1           6h
+deployment.apps/istio-ingressgateway     1         1         1            1           6h
+deployment.apps/istio-pilot              1         1         1            1           6h
+deployment.apps/istio-policy             1         1         1            1           6h
+deployment.apps/istio-sidecar-injector   1         1         1            1           6h
+deployment.apps/istio-telemetry          1         1         1            1           6h
+deployment.apps/istio-tracing            1         1         1            1           6h
+deployment.apps/prometheus               1         1         1            1           6h
+deployment.apps/servicegraph             1         1         1            1           6h
+
+NAME                                                DESIRED   CURRENT   READY   AGE
+replicaset.apps/grafana-56947478f7                  1         1         1       6h
+replicaset.apps/istio-citadel-8566d7c458            1         1         1       6h
+replicaset.apps/istio-egressgateway-7bcdcf57b9      1         1         1       6h
+replicaset.apps/istio-galley-677745f7d6             1         1         1       6h
+replicaset.apps/istio-ingressgateway-7f4c4c57f6     1         1         1       6h
+replicaset.apps/istio-pilot-cf944f77d               1         1         1       6h
+replicaset.apps/istio-policy-787bb9599c             1         1         1       6h
+replicaset.apps/istio-sidecar-injector-5f55468d6d   1         1         1       6h
+replicaset.apps/istio-telemetry-6df7c97dcd          1         1         1       6h
+replicaset.apps/istio-tracing-6bc87d5c59            1         1         1       6h
+replicaset.apps/prometheus-544bf8c86                1         1         1       6h
+replicaset.apps/servicegraph-6f9dc968f5             1         1         1       6h
 
 NAME                                                       REFERENCE                         TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
 horizontalpodautoscaler.autoscaling/istio-egressgateway    Deployment/istio-egressgateway    20%/80%   1         5         1          6h
 horizontalpodautoscaler.autoscaling/istio-ingressgateway   Deployment/istio-ingressgateway   20%/80%   1         5         1          6h
 horizontalpodautoscaler.autoscaling/istio-pilot            Deployment/istio-pilot            0%/80%    1         5         1          6h
-horizontalpodautoscaler.autoscaling/istio-policy           Deployment/istio-policy           30%/80%   1         5         1          6h
-horizontalpodautoscaler.autoscaling/istio-telemetry        Deployment/istio-telemetry        30%/80%   1         5         1          6h
+horizontalpodautoscaler.autoscaling/istio-policy           Deployment/istio-policy           45%/80%   1         5         1          6h
+horizontalpodautoscaler.autoscaling/istio-telemetry        Deployment/istio-telemetry        70%/80%   1         5         1          6h
 
-NAME                               DESIRED   SUCCESSFUL   AGE
-jobs/istio-cleanup-secrets         1         0            1m
-jobs/istio-grafana-post-install    1         0            1m
-jobs/istio-security-post-install   1         0            1m
-
-NAME                                         READY     STATUS              RESTARTS   AGE
-po/grafana-56947478f7-x2tqh                  0/1       ContainerCreating   0          1m
-po/istio-citadel-8566d7c458-c5jk5            0/1       ContainerCreating   0          1m
-po/istio-cleanup-secrets-4hjbl               0/1       ContainerCreating   0          1m
-po/istio-egressgateway-7bcdcf57b9-tcf8r      0/1       ContainerCreating   0          1m
-po/istio-galley-677745f7d6-fkvh7             0/1       ContainerCreating   0          1m
-po/istio-grafana-post-install-pzdq6          0/1       ContainerCreating   0          1m
-po/istio-ingressgateway-7f4c4c57f6-vkmkf     0/1       ContainerCreating   0          1m
-po/istio-pilot-cf944f77d-86h6c               0/2       ContainerCreating   0          1m
-po/istio-policy-787bb9599c-zxltf             0/2       ContainerCreating   0          1m
-po/istio-security-post-install-jg5rj         0/1       ContainerCreating   0          1m
-po/istio-sidecar-injector-5f55468d6d-ghp5r   0/1       ContainerCreating   0          1m
-po/istio-telemetry-6df7c97dcd-qflcs          0/2       ContainerCreating   0          1m
-po/istio-tracing-6bc87d5c59-hsh46            1/1       Running             0          1m
-po/prometheus-544bf8c86-nm2bs                1/1       Running             0          1m
-po/servicegraph-6f9dc968f5-9dwhj             1/1       Running             0          1m
-
-NAME                         TYPE           CLUSTER-IP     EXTERNAL-IP     PORT(S)                                                                                                                   AGE
-svc/grafana                  ClusterIP      10.0.1.190     <none>          3000/TCP                                                                                                                  1m
-svc/istio-citadel            ClusterIP      10.0.12.95     <none>          8060/TCP,9093/TCP                                                                                                         1m
-svc/istio-egressgateway      ClusterIP      10.0.117.150   <none>          80/TCP,443/TCP                                                                                                            1m
-svc/istio-galley             ClusterIP      10.0.78.30     <none>          443/TCP,9093/TCP,9901/TCP                                                                                                 1m
-svc/istio-ingressgateway     LoadBalancer   10.0.144.57    23.97.234.106   80:31380/TCP,443:31390/TCP,31400:31400/TCP,15011:31777/TCP,8060:30336/TCP,853:31498/TCP,15030:31563/TCP,15031:32717/TCP   1m
-svc/istio-pilot              ClusterIP      10.0.7.193     <none>          15010/TCP,15011/TCP,8080/TCP,9093/TCP                                                                                     1m
-svc/istio-policy             ClusterIP      10.0.20.7      <none>          9091/TCP,15004/TCP,9093/TCP                                                                                               1m
-svc/istio-sidecar-injector   ClusterIP      10.0.187.218   <none>          443/TCP                                                                                                                   1m
-svc/istio-telemetry          ClusterIP      10.0.19.106    <none>          9091/TCP,15004/TCP,9093/TCP,42422/TCP                                                                                     1m
-svc/jaeger-agent             ClusterIP      None           <none>          5775/UDP,6831/UDP,6832/UDP                                                                                                57s
-svc/jaeger-collector         ClusterIP      10.0.195.232   <none>          14267/TCP,14268/TCP                                                                                                       57s
-svc/jaeger-query             ClusterIP      10.0.178.252   <none>          16686/TCP                                                                                                                 57s
-svc/prometheus               ClusterIP      10.0.16.120    <none>          9090/TCP                                                                                                                  1m
-svc/servicegraph             ClusterIP      10.0.255.35    <none>          8088/TCP                                                                                                                  1m
-svc/tracing                  ClusterIP      10.0.247.105   <none>          80/TCP                                                                                                                    56s
-svc/zipkin                   ClusterIP      10.0.226.124   <none>          9411/TCP                                                                                                                  56s
+NAME                                    DESIRED   SUCCESSFUL   AGE
+job.batch/istio-cleanup-secrets         1         1            6h
+job.batch/istio-grafana-post-install    1         1            6h
+job.batch/istio-security-post-install   1         1            6h
 ```
 
 ## Get Services running in istio-system(things which are necessary)
